@@ -1,5 +1,3 @@
-declare module 'react-native-mapbox-gl__maps';
-
 import {
   Component,
   ReactNode,
@@ -143,12 +141,12 @@ declare namespace MapboxGL {
       coordinate: GeoJSON.Position,
       filter?: Expression,
       layerIds?: Array<string>,
-    ): Promise<GeoJSON.FeatureCollection?>;
+    ): Promise<GeoJSON.FeatureCollection | undefined>;
     queryRenderedFeaturesInRect(
       coordinate: GeoJSON.Position,
       filter?: Expression,
       layerIds?: Array<string>,
-    ): Promise<GeoJSON.FeatureCollection?>;
+    ): Promise<GeoJSON.FeatureCollection | undefined>;
     takeSnap(writeToDisk?: boolean): Promise<string>;
     getZoom(): Promise<number>;
     getCenter(): Promise<GeoJSON.Position>;
@@ -331,7 +329,6 @@ export interface MapViewProps extends ViewProps {
   userTrackingMode?: MapboxGL.UserTrackingModes;
   userLocationVerticalAlignment?: number;
   contentInset?: Array<number>;
-  style?: StyleProp;
   styleURL?: string;
   localizeLabels?: boolean;
   zoomEnabled?: boolean;
@@ -679,14 +676,13 @@ export interface VectorSourceProps extends TileSourceProps {
 export interface ShapeSourceProps extends ViewProps {
   id?: string;
   url?: string;
-  shape?: GeoJSON.Geometries | GeoJSON.Feature | GeoJSON.FeatureCollection;
+  shape?: GeoJSON.Geometry | GeoJSON.GeometryCollection | GeoJSON.Feature | GeoJSON.FeatureCollection;
   cluster?: boolean;
   clusterRadius?: number;
   clusterMaxZoomLevel?: number;
   maxZoomLevel?: number;
   buffer?: number;
   tolerance?: number;
-  images?: {assets?: string[]; [key: string]: ImageSourcePropType};
   onPress?: (event: MapboxGLEvent<'shapesourcelayerpress'>) => void;
   hitbox?: {
     width: number;
@@ -743,7 +739,13 @@ export interface HeatmapLayerProps extends LayerBaseProps {
 }
 
 export interface ImagesProps extends ViewProps {
-  images?: {assets?: string[]; [key: string]: ImageSourcePropType};
+  /**
+   * When using `assets`, other images __should be of type `ImageSourcePropType`__ - they are typed
+   * as `ImageSourcePropType | string[]` due to https://github.com/Microsoft/TypeScript/issues/10042
+   */
+  images?: 
+    | { [key: string]: ImageSourcePropType }
+    | { assets: string[]; [key: string]: ImageSourcePropType | string[] };
 }
 
 export interface ImageSourceProps extends ViewProps {

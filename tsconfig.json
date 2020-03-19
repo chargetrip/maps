@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "lib": ["ES2015"],
+    "moduleResolution": "node",
+    "noEmit": true,
+    "strict": true,
+    "target": "esnext"
+  },
+  "files": [
+    "index.d.test.ts",
+    "index.d.ts"
+  ]
+}
+ 
