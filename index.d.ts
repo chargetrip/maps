@@ -340,7 +340,7 @@ export interface MapViewProps extends ViewProps {
   logoEnabled?: boolean;
   compassEnabled?: boolean;
   compassViewPosition?: number;
-  compassViewMargins?: Point;
+  compassViewMargins?: PointXY;
   surfaceView?: boolean;
   regionWillChangeDebounceTime?: number;
   regionDidChangeDebounceTime?: number;
@@ -628,7 +628,7 @@ export interface HeatmapLayerStyle {
   heatmapOpacityTransition?: Transition | Expression;
 }
 
-export interface Point {
+export interface PointXY {
   x: number;
   y: number;
 }
@@ -643,7 +643,7 @@ export interface PointAnnotationProps {
   snippet?: string;
   selected?: boolean;
   coordinate: GeoJSON.Position;
-  anchor?: Point;
+  anchor?: PointXY;
   onSelected?: () => void;
   onDeselected?: () => void;
 }
