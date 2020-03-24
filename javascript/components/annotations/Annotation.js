@@ -60,6 +60,7 @@ class Annotation extends React.Component {
 
       this.state.shape
         .timing({
+          useNativeDriver: false,
           coordinates: this.props.coordinates,
           easing: this.props.animationEasingFunction,
           duration: this.props.animationDuration,
